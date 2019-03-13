@@ -8,8 +8,9 @@ In the current version app supports the following features
 + Search the list by gtaskiving a date or filter by project name. 
 + Edit a task
   + Mark task as done
-  + Save task list to a file
-  + Load the tasks from the file
+  + Remove a task
++ Save task list to a file
++ Load the tasks from the file
 
 ## Installing ToDoly
 ToDoLy can be installed by downloding code from github repository. For runing app you need to have java 8 or later installed on the machine
