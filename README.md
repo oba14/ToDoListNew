@@ -1,8 +1,8 @@
 # ToDoListNew
 
-This is a **ToDoList** for creating and editing *Tasks*
+A simple **ToDoList** application written in Java for creating and editing *Tasks*.
 
-The menu looks like this
+It is user friendly with a number of features. The current version is console based but we plan to add a GUI in upcoming version. 
 ```
 Welcome to ToDoLy
 You have X tasks to do and Y tasks are done
