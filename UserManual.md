@@ -15,4 +15,25 @@ In the current version app supports the following features
 ## Installing ToDoly
 ToDoLy can be installed by downloding code from github repository. For runing app you need to have java 8 or later installed on the machine
 ## Using ToDoLy
-1. First step : When you start the application main menu look like as below
+The main menu has following layout.
+![alt text](https://github.com/oba14/ToDoListNew/blob/tasks/MainMenu.png "Main Menu")
+
+1. By selecting option 1 we get a sub menu with additional options.
+
+![alt text](https://github.com/oba14/ToDoListNew/blob/tasks/Option_1_subOptions.png )
+
+- By entering 1, entire task list is displayed.
+- By entering 2, all the tasks on a given day will be displayed.
+- By entering 3, tasks are sorted by due date.
+- By entering 4, all the tasks belonging to a certain project are displayed.
+
+2. Add a new task
+3. To edit an existing task enter 3, by doing so another menu will pop up.
+
+![alt text](https://github.com/oba14/ToDoListNew/blob/tasks/Option_3_subOptions.png "Edit Tasks")
+- Enter 1 to Update Task
+- Enter 2 to mark task as done
+- Enter 3 to remove s task
+4. Enter 4 to save the tasks.
+5. Enter 9 to quit.
+
