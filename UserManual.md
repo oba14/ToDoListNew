@@ -35,5 +35,5 @@ The main menu has following layout.
 - Enter 2 to mark task as done
 - Enter 3 to remove s task
 4. Enter 4 to save the tasks.
-5. Enter 9 to quit.
+5. Enter 5 to quit.
 
