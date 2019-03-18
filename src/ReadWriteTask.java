@@ -97,7 +97,7 @@ public class ReadWriteTask {
         }
 
         switch(options){
-
+            // display entire list
             case 1:
                 int k=1;
                 for(Object first: input) {
@@ -106,72 +106,96 @@ public class ReadWriteTask {
                 }
                 break;
 
+            // search by given date
             case 2:
                 System.out.println("Add date to search in format: DD-MM-YYYY");
-                Scanner reader2 = new Scanner(System.in);
-                String dateToSearch = reader2.nextLine();
-                boolean checkDateFormat=true;
+                // Scanner reader2 = new Scanner(System.in);
+                String dateToSearch = EditTasks.getInput(); // Calling getInput method from class EditTasks
+                searchByDate(dateToSearch, input);
 
-                // while loop for checking date format
-                while(checkDateFormat) {
-                    try {
-                        final LocalDate dateToSearchParsed = LocalDate.parse(dateToSearch, DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH));
-
-                        // while loop to Search given date in database
-                        boolean dateFound=true;
-                        while(dateFound) {
-                            try {
-                                input.stream().filter(s-> dateToSearchParsed.equals(((Tasks) s).getDueDate()))
-                                        .forEach(s-> System.out.println(((Tasks) s).getDetails()));
-                                dateFound = false;
-                            } catch (Exception e) {
-                                System.out.println("Date not in system");
-
-                            }
-                        }
-                        checkDateFormat = false;
-                    } catch (Exception e) {
-                        System.out.println("You did not provide the proper format");
-
-                    }
-                    break;
-                }
                 break;
 
             // sort by date
             case 3:
 
-                try {
-                    // USING sorted to sort the list by dates
-                    input.stream().sorted((o1, o2)->((Tasks) o1).getDueDate().compareTo(((Tasks)o2).getDueDate()))
-                            .forEach(s-> System.out.println(((Tasks) s).getDetails()));
+                sortByDate(); // Calling method sort by date
 
-                    // Using sort and comparator
-				/*
-						input.sort(Comparator.comparing(o -> ((Tasks) o).getDueDate()));
-                        for(Object first: input) {
-
-    						System.out.println("> " + ((Tasks) first).getDetails());
-    					}*/
-
-                } catch (Exception e) {
-                    System.out.println("Date not in system");
-                }
                 break;
 
+            // search by project name
             case 4:
                 System.out.println("Enter project name \n");
-                Scanner reader3 = new Scanner(System.in);
-                String projectToSearch = reader3.nextLine();
-                boolean search = true;
-                if (search) {
-                    input.stream().filter(s-> projectToSearch.equals(((Tasks) s).getProject()))
-                            .forEach(s-> System.out.println(((Tasks) s).getDetails()));
-                }else {
 
-                    System.out.println("No such project exists in database");
-                }
+                String projectToSearch = EditTasks.getInput();
+                searchByProject(projectToSearch);
+
         }
         return input;
+    }
+
+    /**
+     * Method to search the list by given date.
+     * @param dateToSearch
+     * @param input
+     */
+    public static void searchByDate(String dateToSearch, List<Object> input) {
+
+        boolean checkDateFormat=true;
+
+        // while loop for checking date format
+        while(checkDateFormat) {
+            try {
+                final LocalDate dateToSearchParsed = LocalDate.parse(dateToSearch, DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH));
+
+                // while loop to Search given date in database
+                boolean dateFound=true;
+                while(dateFound) {
+                    try {
+                        input.stream().filter(s-> dateToSearchParsed.equals(((Tasks) s).getDueDate()))
+                                .forEach(s-> System.out.println(((Tasks) s).getDetails()));
+                        dateFound = false;
+                    } catch (Exception e) {
+                        System.out.println("Date not in system");
+
+                    }
+                }
+                checkDateFormat = false;
+            } catch (Exception e) {
+                System.out.println("You did not provide the proper format");
+
+            }
+            break;
+        }
+    }
+
+    /**
+     * Method to sort the list of tasks by date
+     */
+    public static void sortByDate() {
+
+        try {
+            // USING sorted to sort the list by dates
+            input.stream().sorted((o1, o2)->((Tasks) o1).getDueDate().compareTo(((Tasks)o2).getDueDate()))
+                    .forEach(s-> System.out.println(((Tasks) s).getDetails()));
+
+
+        } catch (Exception e) {
+            System.out.println("Date not in system");
+        }
+    }
+
+    /**
+     * Method to search the task list by providing the project name
+     * @param projectToSearch
+     */
+    public static void searchByProject(String projectToSearch) {
+        boolean search = true;
+        if (search) {
+            input.stream().filter(s-> projectToSearch.equals(((Tasks) s).getProject()))
+                    .forEach(s-> System.out.println(((Tasks) s).getDetails()));
+        }else {
+
+            System.out.println("No such project exists in database");
+        }
     }
 }

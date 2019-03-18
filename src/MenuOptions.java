@@ -101,6 +101,7 @@ public class MenuOptions {
                 break;
 
             case 2:
+                // Add anew task
 
                 // INITIALIZING OBJECT OF CLASS TASKS
                 Tasks taskObject = new Tasks();
@@ -110,7 +111,7 @@ public class MenuOptions {
                 try {
                     // Call method to add new tasks
                     taskObject = addData.addNewTask();
-                    listForWriting.add(taskObject);
+                    listForWriting.add(taskObject); // adding newly created task to arrayList
                 }catch (NullPointerException e) {
                     System.out.println("Added wrong details");
                 }
@@ -145,7 +146,7 @@ public class MenuOptions {
                     int k =1;
                     for(Object first: listForWriting) {
 
-                        System.out.println("> " + k++ + ((Tasks) first).getDetails());
+                        System.out.println(">" + k++ + " " + ((Tasks) first).getDetails());
                     }
                 } catch (IOException e) {
                     // catch block
@@ -155,16 +156,15 @@ public class MenuOptions {
                 break;
 
             case 4:
-                //save
+                //save the list of tasks
+
                 ReadWriteTask inputOutput= new ReadWriteTask();
                 System.out.println("> Option 4 selected");
                 System.out.println("> Save");
-                // write object list to file
-                //System.out.println(listForWriting);
                 try {
                     inputOutput.writeListToFile(listForWriting);
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
+                    // catch block
                     e.printStackTrace();
                 }
                 printWelcome();
