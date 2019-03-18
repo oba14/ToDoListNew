@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="plantuml4idea">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/plantuml4idea/lib/plantuml4idea.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

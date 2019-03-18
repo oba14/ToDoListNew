@@ -32,8 +32,8 @@ public class EditTasks {
      */
     public static List<Object> editTasksFromFile() throws IOException {
 
-        UserInput addData = new UserInput();
-        Tasks taskObject;
+//		UserInput addData = new UserInput();
+//		Tasks taskObject;
         List<Object> listOfTasks = new ArrayList<>(); // List for storing objects.
         File taskList = new File("/Users/obaidaftab/eclipse-workspace/ToDoListOb/tasksList.txt");
 
@@ -74,73 +74,26 @@ public class EditTasks {
 
                     case 1: // UPDATE TASK
 
-                        // INIRIALIZING OBJECT OF CLASS TASKS
-                        taskObject = new Tasks();
                         System.out.println("> Enter title of the task you wish to update \n");
-                        Scanner reader4 = new Scanner(System.in);
-                        String titleToSearch = reader4.nextLine();
+                        String titleToSearch = getInput(); // Calling method getInput to ask the user for title
+                        updateTask(titleToSearch, listOfTasks); // Calling method updateTask and providing title name and a list of tasks
 
-                        for (int i=0; i < listOfTasks.size(); i++) {
-
-                            if (titleToSearch.toLowerCase().trim().equals(((Tasks) listOfTasks.get(i)).getTitle())) {
-
-                                System.out.println("> Details of the task you wish to update: \n");
-                                System.out.println(((Tasks) listOfTasks.get(i)).getDetails());
-                                taskObject = addData.addNewTask();
-                                System.out.println("> Updated Task: \n");
-                                System.out.println(taskObject.getDetails());
-                                listOfTasks.set(i, taskObject);
-                                System.out.println("> Object found");
-                                break;
-
-                            }
-                            else {
-                                //System.out.println("> No such task exists in database");
-                            }
-                        }
                         break;
 
                     case 2: // MARK TASK AS DONE
 
                         System.out.println("> Give title of the task to mark it As completed");
-                        taskObject = new Tasks();
-                        Scanner reader5 = new Scanner(System.in);
-                        String titleToSearch2 = reader5.nextLine();
+                        String titleToSearch2 = getInput();
+                        markTaskDone(titleToSearch2, listOfTasks); // Calling method markTaskDone
 
-                        for (int i=0; i < listOfTasks.size(); i++) {
-
-                            if (titleToSearch2.toLowerCase().trim().equals(((Tasks) listOfTasks.get(i)).getTitle())) {
-                                taskObject = (Tasks) listOfTasks.get(i);
-                                System.out.println("> " + i++ + taskObject.getDetails());
-                                taskObject.setStatus("completed");
-                                listOfTasks.set(i, taskObject);
-                                System.out.println("> Updated status " + ((Tasks) listOfTasks.get(i)).getDetails());
-                                break;
-                            }
-                            else {
-                                System.out.println("> No such task exists in database");
-                            }
-                        }
                         break;
 
                     case 3: // REMOVE TASK
 
-                        // INIRIALIZING OBJECT OF CLASS TASKS
-                        taskObject = new Tasks();
                         System.out.println("> Enter title of the task you wish to update \n");
-                        Scanner reader6 = new Scanner(System.in);
-                        String titleToSearch3 = reader6.nextLine();
+                        String titleToSearch3 = getInput();
+                        removeTask(titleToSearch3, listOfTasks); // Calling method removeTask
 
-                        Iterator<Object> it = listOfTasks.iterator();
-                        while(it.hasNext()) {
-                            Tasks ds = (Tasks) it.next();
-                            if (titleToSearch3.toLowerCase().trim().equals(ds.getTitle())) {
-                                it.remove();
-                                System.out.println("> Task has been removed");
-                                break;
-                            }
-                        }
-                        //System.out.println("No such task exists in the database");
                         break;
                 }
             } catch (ClassNotFoundException e) {
@@ -153,5 +106,89 @@ public class EditTasks {
             System.out.println("File does not exist");
         }
         return listOfTasks;
+    }
+
+    /**
+     *
+     * @param titleToSearch
+     * @param listTasks
+     */
+    public static void updateTask(String titleToSearch, List<Object> listTasks) {
+        // INIRIALIZING OBJECT OF CLASS TASKS
+        Tasks taskObject = new Tasks();
+        UserInput addData = new UserInput();
+
+        for (int i=0; i < listTasks.size(); i++) {
+
+            if (titleToSearch.toLowerCase().trim().equals(((Tasks) listTasks.get(i)).getTitle())) {
+
+                System.out.println("> Details of the task you wish to update: \n");
+                System.out.println(((Tasks) listTasks.get(i)).getDetails());
+                taskObject = addData.addNewTask();
+                System.out.println("> Updated Task: \n");
+                System.out.println(taskObject.getDetails());
+                listTasks.set(i, taskObject);
+                System.out.println("> Object found");
+            }
+        }
+    }
+
+    /**
+     *
+     * @param titleSearch
+     * @param listTasks
+     */
+    public static void markTaskDone(String titleSearch, List<Object> listTasks) {
+        Tasks taskObject = new Tasks();
+        for (int i=0; i < listTasks.size(); i++) {
+
+            if (titleSearch.toLowerCase().trim().equals(((Tasks) listTasks.get(i)).getTitle())) {
+                taskObject = (Tasks) listTasks.get(i);
+                System.out.println("> " + i++ + taskObject.getDetails());
+                taskObject.setStatus("completed");
+                listTasks.set(i, taskObject);
+                System.out.println("> Updated status " + ((Tasks) listTasks.get(i)).getDetails());
+                break;
+            }
+            else {
+                System.out.println("> No such task exists in database");
+            }
+        }
+    }
+
+    /**
+     *
+     * @param titleSearch
+     * @param listTasks
+     */
+    public static void removeTask(String titleSearch, List<Object> listTasks) {
+
+        Iterator<Object> it = listTasks.iterator();
+        while(it.hasNext()) {
+            Tasks ds = (Tasks) it.next();
+            if (titleSearch.toLowerCase().trim().equals(ds.getTitle())) {
+                it.remove();
+                System.out.println("> Task has been removed");
+                break;
+            }
+        }
+    }
+
+    /**
+     *
+     * @return This method invokes Scanner and
+     * returns any value of type string provided by the user
+     */
+    public static String getInput() {
+        Scanner scan = new Scanner(System.in);
+        String userInput = "";
+
+        try {
+            userInput = scan.nextLine();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        //sc.close();
+        return userInput;
     }
 }

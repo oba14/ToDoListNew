@@ -1,9 +1,6 @@
-import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Locale;
-import java.util.Scanner;
 
 /**
  * A class that prompts user to add all the details  of a task (title, duedate, status, project).
@@ -21,13 +18,37 @@ public class UserInput{
      */
     public Tasks addNewTask() {
 
-        /**********************************
-         *
-         *  ASK USER TO GIVE TITLE
-         */
+        String title = giveTitle();
+        LocalDate dueDate = giveDueDate();
+        String status = giveStatus();
+        String project = giveProject();
+
+        // Creating a new task by providing all user defined values as parameter
+        Tasks taskObject2 = new Tasks(title, dueDate, status, project);
+
+        return taskObject2;
+    }
+
+    /**
+     * Method for giving new task a title
+     * @return
+     */
+    public static String giveTitle() {
+
+
+        //ASK USER TO GIVE TITLE
+
         System.out.println("Add title:");
-        Scanner reader = new Scanner(System.in);
-        String title = reader.nextLine();
+        String title = EditTasks.getInput();
+        return title;
+
+    }
+
+    /**
+     * Method for giving new task a due date
+     * @return
+     */
+    public static LocalDate giveDueDate() {
 
 
         /* *********************************
@@ -35,12 +56,12 @@ public class UserInput{
          *  ASK USER FOR A DUE DATE
          */
         System.out.println("Add due date of the task in format: DD-MM-YYYY");
-        Scanner reader2 = new Scanner(System.in);
+        // Scanner reader2 = new Scanner(System.in);
 
         // CHECK IF CORRECT DATE FORMAT IS PROVIDED AND ITS NOT IT PAST
         LocalDate dueDate = null;
-        while(reader2.hasNextLine()) {
-            String dateInput = reader2.next();
+        while(true) {
+            String dateInput = EditTasks.getInput();
             try {
 
                 // FORMAT CHECK
@@ -59,19 +80,26 @@ public class UserInput{
                 System.out.println("Add the date again");
             }
         }
+        return dueDate;
 
+    }
+
+    /**
+     * Method for giving new task a status
+     * @return
+     */
+    public static String giveStatus() {
 
         /* *********************************
          *
          *  ASK USER TO GIVE STATUS OF A PROJECT
          *  it accepts only 2 words, completed/pending
-         *  if user enters any other word it will ask the user to enter a write option.
+         *  if user enters any other word it will ask the user to enter a right option.
          */
         System.out.println("Status of the task: Completed, Pending ");
-        Scanner reader3 = new Scanner(System.in);
         String status= new String();
-        while (reader3.hasNextLine()) {
-            String temp1 = reader3.nextLine();
+        while (true) {//while (reader3.hasNextLine()) {
+            String temp1 = EditTasks.getInput();
             if (temp1.trim().toLowerCase().equals("completed") || temp1.trim().toLowerCase().equals("pending") )
             {
                 System.out.println("Status updated as: " + temp1);
@@ -80,6 +108,15 @@ public class UserInput{
             }else
                 System.out.println("You entered a wrong option");
         }
+        return status;
+
+    }
+
+    /**
+     * Method for assigning a project to newly created task.
+     * @return
+     */
+    public static String giveProject() {
 
         /**********************************
          *
@@ -87,12 +124,8 @@ public class UserInput{
          *
          */
         System.out.println("Add name of the project this task will belong to: ");
-        Scanner reader4 = new Scanner(System.in);
-        String project = reader4.nextLine();
+        String project = EditTasks.getInput();
+        return project;
 
-        // Creating a new task by providing all user defined values as parameter
-        Tasks taskObject2 = new Tasks(title, dueDate, status, project);
-
-        return taskObject2;
     }
 }

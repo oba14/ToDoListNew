@@ -1,8 +1,6 @@
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A class to add task details (title, duedate, status, project).
@@ -109,8 +107,8 @@ public class Tasks implements Serializable{
      */
     public String getDetails()
     {
-        return (
-                " Title = " + taskTitle + ", " + " Due date = " + dueDate + ", " + " Status = " + status + ", " + " project = " + project);
+        //return (" Title = " + taskTitle + ", " + " Due date = " + dueDate + ", " + " Status = " + status + ", " + " project = " + project);
+        return (taskTitle + ", " + dueDate + ", " + status + ", "+ project);
     }
 
 }
